@@ -1,7 +1,7 @@
 const $ul = document.querySelector('ul')
 const $select = document.querySelector('select')
 const $powersUl = document.querySelector('.powers')
-const $button = document.querySelector('.button')
+
 
 
 // const searchParams = new URLSearchParams(window.location.search)
@@ -14,11 +14,13 @@ fetch("http://localhost:3000/heros")
       const $li = document.createElement('li')
       $li.innerHTML = `<a href=./hero.html?id=${hero.id}>${hero.name}</a><button type="button" class="button">Delete Me</button>`
       $ul.append($li)
+      let $button = document.querySelector('.button')
       $button.addEventListener('click', () => {
         fetch(`http://localhost:3000/heros/${hero.id}`, {
           method: "DELETE"
-        })
+        }).then(response => console.log(response))
       })
+
     })
   })
 
@@ -59,5 +61,5 @@ $form.addEventListener('submit', () => {
       super_name: superName.value, 
       power_id: powerId.value
     })
-  })
+  }).then(response => response.json())
 })
