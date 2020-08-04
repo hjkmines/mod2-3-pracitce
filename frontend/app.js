@@ -24,14 +24,34 @@ fetch("http://localhost:3000/powers")
       const $option = document.createElement('option')
       
       $li.innerHTML = `<a href=./power.html?id=${power.id}>${power.name}</a>` 
-      $powersUl.append('$li')
+      $powersUl.append($li)
 
       $option.textContent = power.name
       $option.name = "power_id" 
       $option.value = power.id
       
-      $select.append('$option')
-
-
+      $select.append($option)
     })
   })
+
+const $form = document.querySelector('form')
+
+$form.addEventListener('submit', () => {
+  event.preventDefault()
+
+  const name = document.querySelector("#name")
+  const superName = document.querySelector("#super-name")
+  const powerId = document.querySelector("#power-id")
+
+  fetch("http://localhost:3000/heros", {
+    method: "POST", 
+    headers: {
+      'Content-Type': 'application/json'
+    }, 
+    body: JSON.stringify({
+      name: name.value, 
+      super_name: superName.value, 
+      power_id: powerId.value
+    })
+  })
+})

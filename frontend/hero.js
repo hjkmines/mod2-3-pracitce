@@ -10,14 +10,3 @@ fetch(`http://localhost:3000/heros/${id}`)
     $li.textContent = response.super_name
     $ul.append($li)
   })
-
-
-
-
-fetch(`http://localhost:3000/heros/${id}`)
-  .then(response => response.json())
-  .then(response => {
-    const $li = document.createElement('li')
-    $li.textContent = response.super_name
-    $ul.append($li)
-  })
