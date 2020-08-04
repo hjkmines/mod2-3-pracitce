@@ -1,6 +1,7 @@
 const $ul = document.querySelector('ul')
 const $select = document.querySelector('select')
 const $powersUl = document.querySelector('.powers')
+const $button = document.querySelector('.button')
 
 
 // const searchParams = new URLSearchParams(window.location.search)
@@ -11,8 +12,13 @@ fetch("http://localhost:3000/heros")
   .then(response => {
     response.forEach((hero) => {
       const $li = document.createElement('li')
-      $li.innerHTML = `<a href=./hero.html?id=${hero.id}>${hero.name}</a>`
+      $li.innerHTML = `<a href=./hero.html?id=${hero.id}>${hero.name}</a><button type="button" class="button">Delete Me</button>`
       $ul.append($li)
+      $button.addEventListener('click', () => {
+        fetch(`http://localhost:3000/heros/${hero.id}`, {
+          method: "DELETE"
+        })
+      })
     })
   })
 
