@@ -14,19 +14,33 @@ class HerosController < ApplicationController
     render json: @heros, include: [:power] 
   end 
 
+  def new 
+    @hero = Hero.new 
+    @powers = Power.all 
+  end 
+
   def show 
     @hero = Hero.find(params[:id])
     render json: @hero, include: [:power] 
   end 
 
   def create 
-    @hero = Hero.create(
-      name: params[:name], 
-      super_name: params[:super_name], 
-      power_id: params[:power_id]
-      )
+    @hero = Hero.create(hero_params)
 
-      redirect_to "http://localhost:3001"
+    if @hero.valid?
+      @hero.save 
+      redirect_to hero_path(@hero)
+    else 
+      render :new 
+      @hero.errors 
+    end 
+    render json: @hero 
   end 
+
+private 
+
+def hero_params 
+  params.require(:hero).permit(:name, :super_name, :power_id)
+end 
 
 end

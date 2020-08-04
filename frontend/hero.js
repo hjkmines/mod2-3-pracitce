@@ -7,6 +7,6 @@ fetch(`http://localhost:3000/heros/${id}`)
   .then(response => response.json())
   .then(response => {
     const $li = document.createElement('li')
-    $li.textContent = response.super_name
+    $li.innerHTML = `${response.name}<a href="./power.html?id=${response.power.id}">${response.power.name}</a>`
     $ul.append($li)
   })
